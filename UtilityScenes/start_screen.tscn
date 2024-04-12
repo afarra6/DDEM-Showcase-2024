@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://duyjoc5xnhju6"]
+
+[ext_resource type="Script" path="res://UtilityScenes/start_screen.gd" id="1_4gjxc"]
+[ext_resource type="Shader" path="res://UtilityScenes/main_menu.gdshader" id="1_a7dpr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7gpq"]
+shader = ExtResource("1_a7dpr")
+
+[sub_resource type="SystemFont" id="SystemFont_f5afs"]
+font_names = PackedStringArray("Cascadia Mono")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4l2hg"]
+bg_color = Color(0.6, 0.6, 0.6, 0.129412)
+
+[sub_resource type="SystemFont" id="SystemFont_qnnc3"]
+font_names = PackedStringArray("Cascadia Mono")
+
+[sub_resource type="LabelSettings" id="LabelSettings_pbjth"]
+font = SubResource("SystemFont_qnnc3")
+font_size = 48
+
+[node name="Start Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4gjxc")
+scene = "main"
+
+[node name="Panel" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_l7gpq")
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 647.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 397.0
+offset_top = 299.0
+offset_right = 747.0
+offset_bottom = 442.0
+theme_override_fonts/font = SubResource("SystemFont_f5afs")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_4l2hg")
+text = "PLAY"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 143.0
+offset_right = 847.0
+offset_bottom = 210.0
+text = "DDEM SHOWCASE 2024"
+label_settings = SubResource("LabelSettings_pbjth")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

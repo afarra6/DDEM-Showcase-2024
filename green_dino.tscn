@@ -1,0 +1,157 @@
+[gd_scene load_steps=21 format=3 uid="uid://t6jcg0vn8sr5"]
+
+[ext_resource type="Script" path="res://dino scripts/red dino/red_dino.gd" id="1_l0bmx"]
+[ext_resource type="Texture2D" uid="uid://deijmrq8ynxj8" path="res://Art/dino_sheets/DinoSprites - vita.png" id="2_htv6h"]
+[ext_resource type="Script" path="res://addons/finite_state_machine/scripts/finite_state_machine.gd" id="3_o88c7"]
+[ext_resource type="Script" path="res://dino scripts/green dino/Idle-Green.gd" id="4_vsp3f"]
+[ext_resource type="Script" path="res://dino scripts/red dino/Hurt.gd" id="6_65wjw"]
+[ext_resource type="Script" path="res://dino scripts/Green-Run.gd" id="6_yrhfr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4v3j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4ps1"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(336, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5wfk"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(360, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu6a1"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(384, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqgo1"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vo5p"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51y6f"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmt0l"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eawgk"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xeiy3"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_448uy"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(192, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ttni"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(216, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvxp6"]
+atlas = ExtResource("2_htv6h")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3qfyi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4ps1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5wfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uu6a1")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqgo1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vo5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51y6f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmt0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eawgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xeiy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_448uy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ttni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvxp6")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="Green Dino" type="CharacterBody2D" groups=["dino"]]
+collision_layer = 2
+script = ExtResource("1_l0bmx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_p4v3j")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_p4v3j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4.76837e-07, 3)
+scale = Vector2(1.41667, 1.41667)
+sprite_frames = SubResource("SpriteFrames_3qfyi")
+animation = &"run"
+frame_progress = 0.102324
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_o88c7")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("enemy", "sprite", "timer")]
+script = ExtResource("4_vsp3f")
+enemy = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
+timer = NodePath("../../Timer")
+
+[node name="Hurt" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("enemy", "sprite")]
+script = ExtResource("6_65wjw")
+enemy = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Run" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("enemy", "sprite")]
+script = ExtResource("6_yrhfr")
+enemy = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="FiniteStateMachine/Hurt" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="FiniteStateMachine/Idle" method="_on_timer_timeout"]

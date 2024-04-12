@@ -1,0 +1,135 @@
+[gd_scene load_steps=18 format=3 uid="uid://bwxkiigro8p1e"]
+
+[ext_resource type="Script" path="res://dino scripts/red dino/red_dino.gd" id="1_vro5m"]
+[ext_resource type="Texture2D" uid="uid://d4guq6w61ew8w" path="res://Art/dino_sheets/DinoSprites - tard.png" id="3_f4f6j"]
+[ext_resource type="Script" path="res://addons/finite_state_machine/scripts/finite_state_machine.gd" id="3_hevfa"]
+[ext_resource type="Script" path="res://dino scripts/red dino/Hurt.gd" id="4_niox8"]
+[ext_resource type="Script" path="res://dino scripts/Yellow-Idle.gd" id="4_pl7s8"]
+[ext_resource type="Script" path="res://dino scripts/red dino/Jump.gd" id="5_12mi6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4v3j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3b8m"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(336, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbrnj"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(360, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28nah"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(384, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sw840"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnmbe"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74o1j"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xm1jy"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(240, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnw4h"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(264, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ntgd"]
+atlas = ExtResource("3_f4f6j")
+region = Rect2(288, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v3qg6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3b8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbrnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28nah")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sw840")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnmbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74o1j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xm1jy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnw4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ntgd")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}]
+
+[node name="Yellow Dino" type="CharacterBody2D" groups=["dino"]]
+collision_layer = 2
+script = ExtResource("1_vro5m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_p4v3j")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_p4v3j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4.76837e-07, 3)
+scale = Vector2(1.41667, 1.41667)
+sprite_frames = SubResource("SpriteFrames_v3qg6")
+animation = &"hurt"
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_hevfa")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("enemy", "sprite", "timer")]
+script = ExtResource("4_pl7s8")
+enemy = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
+timer = NodePath("../../Timer")
+
+[node name="Hurt" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("enemy", "sprite")]
+script = ExtResource("4_niox8")
+enemy = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Jump" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("enemy", "sprite")]
+script = ExtResource("5_12mi6")
+enemy = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="FiniteStateMachine/Hurt" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="FiniteStateMachine/Idle" method="_on_timer_timeout"]

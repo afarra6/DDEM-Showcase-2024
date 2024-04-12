@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpf825mu8j5ge"]
+
+[ext_resource type="Script" path="res://Coins.gd" id="1_67ok1"]
+
+[sub_resource type="SystemFont" id="SystemFont_mqm58"]
+font_names = PackedStringArray("Cascadia Mono")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_hcwse"]
+font = SubResource("SystemFont_mqm58")
+font_size = 48
+
+[sub_resource type="SystemFont" id="SystemFont_r0ax0"]
+font_names = PackedStringArray("Cascadia Mono")
+
+[node name="win screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 88.0
+offset_right = 574.0
+offset_bottom = 145.0
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_hcwse")
+
+[node name="Coins" type="Label" parent="."]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 174.0
+offset_right = 574.0
+offset_bottom = 231.0
+text = "COINS COLLECTED: 0"
+label_settings = SubResource("LabelSettings_hcwse")
+script = ExtResource("1_67ok1")
+scene = "start_screen"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 632.0
+offset_top = 79.0
+offset_right = 864.0
+offset_bottom = 144.0
+theme_override_fonts/font = SubResource("SystemFont_r0ax0")
+theme_override_font_sizes/font_size = 48
+text = "RESTART?"
+
+[connection signal="pressed" from="Button" to="Coins" method="_on_button_pressed"]

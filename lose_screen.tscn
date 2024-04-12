@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyshuv2ba2wda"]
+
+[ext_resource type="Script" path="res://restart_button.gd" id="1_vla8k"]
+
+[sub_resource type="SystemFont" id="SystemFont_nwk2d"]
+font_names = PackedStringArray("Cascadia Mono")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0gn06"]
+font = SubResource("SystemFont_nwk2d")
+font_size = 48
+
+[sub_resource type="SystemFont" id="SystemFont_rxpsi"]
+font_names = PackedStringArray("Cascadia Mono")
+
+[node name="lose screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 172.0
+offset_right = 631.0
+offset_bottom = 229.0
+text = "YOU LOSE"
+label_settings = SubResource("LabelSettings_0gn06")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 408.0
+offset_top = 262.0
+offset_right = 640.0
+offset_bottom = 327.0
+theme_override_fonts/font = SubResource("SystemFont_rxpsi")
+theme_override_font_sizes/font_size = 48
+text = "RESTART?"
+script = ExtResource("1_vla8k")
+scene = "start_screen"
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

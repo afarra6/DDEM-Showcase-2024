@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://dino scripts/Fall.gd" id="10_nrc1w"]
 [ext_resource type="Script" path="res://dino scripts/Player-Hurt.gd" id="11_eqk3x"]
 [ext_resource type="PackedScene" uid="uid://bpf825mu8j5ge" path="res://UtilityScenes/win_screen.tscn" id="12_wox80"]
-[ext_resource type="Script" path="res://Lose.gd" id="13_rku7y"]
+[ext_resource type="Script" path="res://dino scripts/Lose.gd" id="13_rku7y"]
 [ext_resource type="PackedScene" uid="uid://cyshuv2ba2wda" path="res://lose_screen.tscn" id="15_0s55q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rndtw"]

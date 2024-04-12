@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyshuv2ba2wda"]
 
-[ext_resource type="Script" path="res://restart_button.gd" id="1_vla8k"]
+[ext_resource type="Script" path="res://dino scripts/restart_button.gd" id="1_vla8k"]
 
 [sub_resource type="SystemFont" id="SystemFont_nwk2d"]
 font_names = PackedStringArray("Cascadia Mono")
@@ -30,6 +30,7 @@ text = "YOU LOSE"
 label_settings = SubResource("LabelSettings_0gn06")
 
 [node name="Button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 408.0
 offset_top = 262.0
 offset_right = 640.0

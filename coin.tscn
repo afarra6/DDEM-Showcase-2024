@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://iqk0kegwv5go"]
 
-[ext_resource type="Script" path="res://coin.gd" id="1_5x35p"]
+[ext_resource type="Script" path="res://dino scripts/coin.gd" id="1_5x35p"]
 [ext_resource type="Texture2D" uid="uid://404c7yf565i6" path="res://Art/MOEDA DOURADA/Coin-1.png.png" id="1_6qlr2"]
 [ext_resource type="Texture2D" uid="uid://rsshj1wren7y" path="res://Art/MOEDA DOURADA/Coin-2.png.png" id="2_nr7a3"]
 [ext_resource type="Texture2D" uid="uid://bss0xpjfswdn4" path="res://Art/MOEDA DOURADA/Coin-3.png.png" id="3_yy230"]

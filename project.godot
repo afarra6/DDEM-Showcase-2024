@@ -19,7 +19,7 @@ config/icon="res://UtilityScenes/icon.svg"
 
 SceneManager="*res://addons/scene_manager/scene_manager.tscn"
 Scenes="*res://addons/scene_manager/scenes.gd"
-Inventory="*res://Inventory.gd"
+Inventory="*res://dino scripts/Inventory.gd"
 
 [editor_plugins]
 
